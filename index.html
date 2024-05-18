@@ -1,3 +1,5 @@
+<!
+    .button-row button {
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,20 +14,19 @@
         align-items: center;
         height: 100vh;
         margin: 0;
-        background-color: #f0f0f0; /* ポップアップ以外の背景色 */
     }
 
     #question {
         margin-bottom: 20px;
     }
 
-    .button-row {
+    .button-container {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    .button-row button {
+    .button-container button {
         width: 150px;
         height: 150px;
         margin: 10px;
@@ -37,20 +38,8 @@
         font-size: 16px;
     }
 
-    .button-row button:hover {
+    .button-container button:hover {
         background-color: #0056b3;
-    }
-
-    #popup-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
     }
 
     #popup {
@@ -60,7 +49,11 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        max-width: 80%; /* ポップアップの最大幅 */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
     }
 
     #popup h2 {
@@ -92,36 +85,34 @@
     <p>次のうち、最大の惑星はどれですか？</p>
 </div>
 
-<div class="button-row">
+<div class="button-container">
     <button onclick="checkAnswer('Jupiter')">木星</button>
     <button onclick="checkAnswer('Mars')">火星</button>
 </div>
-<div class="button-row">
+<div class="button-container">
     <button onclick="checkAnswer('Venus')">金星</button>
     <button onclick="checkAnswer('Saturn')">土星</button>
 </div>
 
-<div id="popup-container" style="display: none;">
-    <div id="popup">
-        <h2 id="popupText"></h2>
-        <button onclick="closePopup()">閉じる</button>
-    </div>
+<div id="popup" style="display: none;">
+    <h2 id="popupText"></h2>
+    <button onclick="closePopup()">閉じる</button>
 </div>
 
 <script>
 function checkAnswer(answer) {
-    var popupContainer = document.getElementById("popup-container");
+    var popup = document.getElementById("popup");
     var popupText = document.getElementById("popupText");
     if (answer === 'Jupiter') {
         popupText.textContent = '正解！';
     } else {
         popupText.textContent = '不正解…';
     }
-    popupContainer.style.display = "flex";
+    popup.style.display = "block";
 }
 
 function closePopup() {
-    document.getElementById("popup-container").style.display = "none";
+    document.getElementById("popup").style.display = "none";
 }
 </script>
 
